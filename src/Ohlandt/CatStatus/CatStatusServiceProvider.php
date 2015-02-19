@@ -1,6 +1,7 @@
 <?php namespace Ohlandt\CatStatus;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 
 class CatStatusServiceProvider extends ServiceProvider {
 
@@ -18,8 +19,10 @@ class CatStatusServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$loader = \Illuminate\Foundation\AliasLoader::getInstance();
-		$loader->alias('CatStatus', 'Ohlandt\CatStatus\CatStatus');
+        $this->app['catstatus'] = $this->app->share(function($app)
+        {
+            return new \Ohlandt\CatStatus\CatStatus;
+        });
 	}
 
 	/**
@@ -34,6 +37,8 @@ class CatStatusServiceProvider extends ServiceProvider {
 
 	public function boot(){
 		$this->package('ohlandt/catstatus');
+
+        AliasLoader::getInstance()->alias('CatStatus', 'Ohlandt\CatStatus\CatStatusFacade');
 	}
 
 }
