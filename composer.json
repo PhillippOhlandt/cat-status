@@ -1,6 +1,8 @@
 {
     "name": "ohlandt/cat-status",
     "description": "",
+    "license": "MIT",
+    "version": "1.0.3",
     "authors": [
         {
             "name": "Phillipp Ohlandt",
