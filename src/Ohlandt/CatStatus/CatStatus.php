@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Phillipp
@@ -8,52 +9,41 @@
 
 namespace Ohlandt\CatStatus;
 
-
-class CatStatus {
-
+class CatStatus
+{
     private $cats = array(
-        'STANDARD' => '(=^･^=)',
-        'SUCCESS' => '└(=^‥^=)┐',
+        'STANDARD'  => '(=^･^=)',
+        'SUCCESS'   => '└(=^‥^=)┐',
         'NOT_FOUND' => '(=ＴェＴ=)',
     );
 
-
-
-    function __construct()
+    public function __toString()
     {
-
-    }
-
-
-    public function __toString(){
         $str = "";
-        foreach($this->cats as $key => $value){
-            $str .= $key . ':'.$value.'|';
+
+        foreach ($this->cats as $key => $value){
+            $str .= $key . ':' . $value . '|';
         }
+
         return substr_replace($str, "", -1);
     }
 
+    public function set(array $status)
+    {
+        $this->cats = array_merge($this->cats, $status);
 
-    public function set($status){
-        if($status){
-            foreach ($status as $key => $value) {
-                $this->cats[$key] = $value;
-            }
-        }
         return $this;
     }
 
+    public function get($status)
+    {
+        $key = array_key_exists($status, $this->cats) ? $status : 'STANDARD';
 
-    public function get($status){
-        if (array_key_exists($status, $this->cats)) {
-            return $this->cats[$status];
-        }
-        return $this->cats['STANDARD'];
+        return $this->cats[$key];
     }
 
-
-    public function getAll(){
+    public function getAll()
+    {
         return $this->cats;
     }
-
 }
