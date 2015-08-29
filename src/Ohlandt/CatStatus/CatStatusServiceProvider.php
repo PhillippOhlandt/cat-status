@@ -1,10 +1,13 @@
-<?php namespace Ohlandt\CatStatus;
+<?php
+
+namespace Ohlandt\CatStatus;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
+use Ohlandt\CatStatus\CatStatus;
 
-class CatStatusServiceProvider extends ServiceProvider {
-
+class CatStatusServiceProvider extends ServiceProvider
+{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -19,10 +22,9 @@ class CatStatusServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-        $this->app['catstatus'] = $this->app->share(function($app)
-        {
-            return new \Ohlandt\CatStatus\CatStatus;
-        });
+        	$this->app['catstatus'] = $this->app->share(function ($app) {
+	        	return new CatStatus;
+        	});
 	}
 
 	/**
@@ -35,10 +37,10 @@ class CatStatusServiceProvider extends ServiceProvider {
 		return array();
 	}
 
-	public function boot(){
+	public function boot()
+	{
 		$this->package('ohlandt/catstatus');
 
-        AliasLoader::getInstance()->alias('CatStatus', 'Ohlandt\CatStatus\CatStatusFacade');
+        	AliasLoader::getInstance()->alias('CatStatus', 'Ohlandt\CatStatus\CatStatusFacade');
 	}
-
 }
